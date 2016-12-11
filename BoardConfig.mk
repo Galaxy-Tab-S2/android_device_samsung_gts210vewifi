@@ -22,6 +22,8 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
+DEVICE_PATH := device/samsung/gts210vewifi
+
 # Bootloader
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := FPRPG21W000RU
@@ -29,21 +31,21 @@ TARGET_BOOTLOADER_BOARD_NAME := FPRPG21W000RU
 # Platform
 TARGET_BOARD_PLATFORM := msm8976
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno510
-TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
+#TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := cortex-a53
 TARGET_CPU_SMP := true
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
+TARGET_2ND_CPU_VARIANT := cortex-a7
 
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
@@ -51,11 +53,26 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 # Kernel
 
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS :=  --ramdisk_offset 0x02000000 --tags_offset 01e00000 --dt device/samsung/gts210vewifi/dtb
-TARGET_PREBUILT_KERNEL := device/samsung/gts210vewifi/kernel
+BOARD_KERNEL_TAGS_OFFSET := 01e00000
+BOARD_RAMDISK_OFFSET     := 0x02000000
+BOARD_KERNEL_SEPARATED_DT := true
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_CONFIG := ashyx_gts28vewifi_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_KERNEL_HAVE_EXFAT := true
+TARGET_KERNEL_HEADER_ARCH := arm64
+TARGET_KERNEL_SOURCE := kernel/samsung/gts210vewifi
+#TARGET_USES_UNCOMPRESSED_KERNEL := true
+#BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_KERNEL_APPEND_DTB := true
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
+
+#BOARD_MKBOOTIMG_ARGS :=  --ramdisk_offset 0x02000000 --tags_offset 01e00000 --dt device/samsung/gts210vewifi/dtb
+#TARGET_PREBUILT_KERNEL := device/samsung/gts210vewifi/kernel
 
 # Partitions
 
@@ -66,6 +83,7 @@ TARGET_PREBUILT_KERNEL := device/samsung/gts210vewifi/kernel
 #BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 #BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+
 
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
