@@ -140,4 +140,5 @@ TW_EXCLUDE_SUPERSU := true
 TW_THEME= portrait_hdpi
 RECOVERY_TOUCHSCREEN_SWAP_XY := true
 RECOVERY_TOUCHSCREEN_FLIP_Y := true
+TARGET_RECOVERY_FSTAB = $(DEVICE_PATH)/recovery/root/recovery.fstab
 
