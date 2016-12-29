@@ -116,10 +116,10 @@ WIFI_DRIVER_FW_PATH_AP           := "ap"
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
+#include device/qcom/sepolicy/sepolicy.mk
 
-BOARD_SEPOLICY_DIRS += \
-    $(DEVICE_PATH)/sepolicy
+# BOARD_SEPOLICY_DIRS += \
+#    $(DEVICE_PATH)/sepolicy
 
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -141,4 +141,3 @@ TW_THEME= portrait_hdpi
 RECOVERY_TOUCHSCREEN_SWAP_XY := true
 RECOVERY_TOUCHSCREEN_FLIP_Y := true
 TARGET_RECOVERY_FSTAB = $(DEVICE_PATH)/recovery/root/recovery.fstab
-
