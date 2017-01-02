@@ -1,5 +1,8 @@
 # encryption support
 on init
+    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    export LD_LIBRARY_PATH /system/vendor/lib64:/system/lib64:/system/vendor/lib:/system/lib
+
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
@@ -12,5 +15,13 @@ service qseecomd /sbin/qseecomd
     group root
     seclabel u:r:recovery:s0
 
+service static_qsee /sbin/qseecomfsd
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
 on property:ro.crypto.state=encrypted
     start qseecomd
+    start static_qsee
