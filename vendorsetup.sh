@@ -14,4 +14,5 @@
 # limitations under the License.
 #
 
-add_lunch_combo omni_gts210vewifi-userdebug
+add_lunch_combo lineageos_gts210vewifi-eng
+add_lunch_combo lineageos_gts210vewifi-userdebug
